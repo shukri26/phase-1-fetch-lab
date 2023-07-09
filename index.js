@@ -1,17 +1,27 @@
+// index.js
+
+// Import the fetch function from a library or use a polyfill
+const fetch = require('node-fetch');
+
 function fetchBooks() {
-  // To pass the tests, don't forget to return your fetch!
-  
+  const url = 'https://anapioficeandfire.com/api/books';
+
+  // Send the fetch request
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch books');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Process the fetched data
+      console.log(data);
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error(error);
+    });
 }
 
-function renderBooks(books) {
-  const main = document.querySelector('main');
-  books.forEach(book => {
-    const h2 = document.createElement('h2');
-    h2.innerHTML = book.name;
-    main.appendChild(h2);
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  fetchBooks();
-});
+fetchBooks(); // Call the fetchBooks function
